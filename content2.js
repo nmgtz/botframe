@@ -112,8 +112,7 @@ function singleWord(single) {
         }
     }
 
-    typeOutMessage(chatBot,
-    botResponse.replace(/\./g, ".<br><br>"));
+    typeOutMessage(chatBot,botResponse);
 }
 
 
@@ -311,48 +310,89 @@ function phraseWords(phrase) {
     } else if (matchedenvironmentWord) {
         botResponse = environmentWordResponse(matchedenvironmentWord);
     } else if (matchedbiosWord) {
-        botResponse = biosWords(matchedbiosWord);
+        botResponse = biosWords(matchedbiosWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedphysWord) {
-        botResponse = physicsWords(matchedphysWord);
+        botResponse = physicsWords(matchedphysWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedmathWord) {
-        botResponse = mathWords(matchedmathWord);
+        botResponse = mathWords(matchedmathWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedcivicWord) {
-        botResponse = civicsWords(matchedcivicWord);
+        botResponse = civicsWords(matchedcivicWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedentertainWord) {
-        botResponse = entertainWords(matchedentertainWord);
+        botResponse = entertainWords(matchedentertainWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedtechWord) {
-        botResponse = techWords(matchedtechWord);
+        botResponse = techWords(matchedtechWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedeconomicWord) {
-        botResponse = economicWords(matchedeconomicWord);
+        botResponse = economicWords(matchedeconomicWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedbotWord) {
-        botResponse = botWords(matchedbotWord);
+        botResponse = botWords(matchedbotWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedenvirnWord) {
-        botResponse = environmentWords(matchedenvirnWord);
+        botResponse = environmentWords(matchedenvirnWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedchemWord) {
-        botResponse = chemistryWords(matchedchemWord);
+        botResponse = chemistryWords(matchedchemWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedstreetWord) {
-        botResponse = streetWords(matchedstreetWord);
+        botResponse = streetWords(matchedstreetWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedthankWord) {
         botResponse = thankWords(matchedthankWord);
     } else if (matchedswahiliWord) {
-        botResponse = kiswahiliWords(matchedswahiliWord);
+        botResponse = kiswahiliWords(matchedswahiliWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedgeoWord) {
-        botResponse = geoWords(matchedgeoWord);
+        botResponse = geoWords(matchedgeoWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedcodeWord) {
-        botResponse = codeWords(matchedcodeWord);
+        botResponse = codeWords(matchedcodeWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedhistoryWord) {
-        botResponse = historyWords(matchedhistoryWord);
+        botResponse = historyWords(matchedhistoryWord)
+        .replace(/[\/\-@]/g, '')
+        .replace(/\./g, ".<br><br>")
+        .replace(/\s{2,}/g, ' ');
     } else if (matchedstatementGreeting) {
         botResponse = statementGreetingsResponse(matchedstatementGreeting);
     }  else {
         botResponse = "Apologies, I may not have comprehended your question regarding \"" + `${freshWords.toLowerCase()}` + "\" This could be due to the information I last trained on in January, 2024 or a possible misphrasing on your part. I am having difficulty understanding it. Please consider rephrasing your question, and I'll be happy to assist. I apologize for any inconvenience caused.";
     } 
     }
-    typeOutMessage(chatBot,
-    botResponse
-        .replace(/[\/\-@]/g, '')
-        .replace(/\./g, ".<br><br>")
-        .replace(/\s{2,}/g, ' '));
+    typeOutMessage(chatBot,botResponse);
 }
 
 
@@ -373,7 +413,6 @@ function showMessage(name, message) {
     chatBotElement.appendChild(messageElement);
     chatBotElement.scrollTop = chatBotElement.scrollHeight;
 }
-
 function typeOutMessage(name, message) {
     var messageElement = document.createElement("div");
     var nameDiv = document.createElement("div");
@@ -389,41 +428,36 @@ function typeOutMessage(name, message) {
     var regex = /<b>(.*?)<\/b>/g;
     var regex1 = /<p>(.*?)<\/p>/g;
     var match;
-    if(regex) {
+    if (regex) {
         while ((match = regex.exec(message)) !== null) {
-        var wordInsideTag = match[1]; 
-        var tagIndex = match.index;
-        var tagLength = match[0].length;
+            var wordInsideTag = match[1]; 
+            var tagIndex = match.index;
+            var tagLength = match[0].length;
 
-        
-        messageDiv.innerHTML += message.substring(lastIndex, tagIndex);
+            messageDiv.innerHTML += message.substring(lastIndex, tagIndex);
 
-        
-        var boldSpan = document.createElement("span");
-        boldSpan.style.fontWeight = "bold";
-        boldSpan.innerText = wordInsideTag;
-        messageDiv.appendChild(boldSpan);
+            var boldSpan = document.createElement("span");
+            boldSpan.style.fontWeight = "bold";
+            boldSpan.innerText = wordInsideTag;
+            messageDiv.appendChild(boldSpan);
 
-        lastIndex = tagIndex + tagLength; 
-    }
-} else if(regex1) {
+            lastIndex = tagIndex + tagLength; 
+        }
+    } else if (regex1) {
         while ((match = regex1.exec(message)) !== null) {
-        var wordInsideTag = match[1]; 
-        var tagIndex = match.index;
-        var tagLength = match[0].length;
+            var wordInsideTag = match[1]; 
+            var tagIndex = match.index;
+            var tagLength = match[0].length;
 
-       
-        messageDiv.innerHTML += message.substring(lastIndex, tagIndex);
+            messageDiv.innerHTML += message.substring(lastIndex, tagIndex);
 
-        
-        var boldSpan = document.createElement("span");
-        boldSpan.style.fontWeight = "bold";
-        boldSpan.innerText = wordInsideTag;
-        messageDiv.appendChild(boldSpan);
+            var boldSpan = document.createElement("span");
+            boldSpan.style.fontWeight = "bold";
+            boldSpan.innerText = wordInsideTag;
+            messageDiv.appendChild(boldSpan);
 
-        lastIndex = tagIndex + tagLength; 
-    }
-
+            lastIndex = tagIndex + tagLength; 
+        }
     }
     
     var remainingText = message.substring(lastIndex); 
@@ -434,11 +468,26 @@ function typeOutMessage(name, message) {
             clearInterval(interval);
             isBotTyping = false; 
             chatBotElement.scrollTop = chatBotElement.scrollHeight;
+            
+
+                var speakButton = document.createElement("button");
+            speakButton.id = "speakButton";
+            speakButton.innerText = "play";
+            messageElement.appendChild(speakButton);
+
+            speakButton.addEventListener("click", function() {
+                if (isSpeaking) {
+                    speakButton.innerText = "play";
+                } else {
+                    speakButton.innerText = "Stop";
+                }
+                speakText(message);
+            });
+
             return; 
         }
 
         if (remainingText[index] === "<") {
-            
             var endIndex = remainingText.indexOf(">", index); 
             if (endIndex !== -1) {
                 messageDiv.innerHTML += remainingText.substring(index, endIndex + 1);   
@@ -446,10 +495,8 @@ function typeOutMessage(name, message) {
             }
         } else {
             if (remainingText[index] === " ") {
-               
                 messageDiv.innerHTML += "&nbsp;";
             } else {
-                
                 messageDiv.innerHTML += remainingText[index];
             }
             index++;
@@ -457,4 +504,40 @@ function typeOutMessage(name, message) {
 
         chatBotElement.scrollTop = chatBotElement.scrollHeight;
     }, 50); 
+}
+
+var isSpeaking = false;
+var currentUtterance;
+
+function speakText(text) {
+    if (isSpeaking) {
+        
+        window.speechSynthesis.cancel();
+        isSpeaking = false;
+    } else {
+       
+        currentUtterance = new SpeechSynthesisUtterance(text);
+        var voices = window.speechSynthesis.getVoices();
+
+        
+        var femaleVoice = voices.find(voice => voice.name.includes('Female') || voice.name.includes('female') || voice.gender === 'female');
+
+       
+        if (!femaleVoice) {
+            femaleVoice = voices.find(voice => voice.name.includes('Male') || voice.name.includes('male') || voice.gender === 'male');
+        }
+
+        if (femaleVoice) {
+            currentUtterance.voice = femaleVoice;
+        }
+
+        currentUtterance.onend = function() {
+            isSpeaking = false;
+        
+            document.getElementById("speakButton").innerText = "play";
+        };
+
+        window.speechSynthesis.speak(currentUtterance);
+        isSpeaking = true;
+    }
 }
